@@ -10,6 +10,11 @@ def read_version(fname="whisper/version.py"):
     exec(compile(open(fname, encoding="utf-8").read(), fname, "exec"))
     return locals()["__version__"]
 
+
+requirements = []
+if sys.platform.startswith("linux") and platform.machine() == "x86_64":
+    requirements.append("triton>=2.0.0")
+
 setup(
     name="openai-whisper",
     py_modules=["whisper"],
@@ -20,7 +25,7 @@ setup(
     readme="README.md",
     python_requires=">=3.8",
     author="OpenAI",
-    url="https://github.com/juanchristensen/whisper",
+    url="https://github.com/openai/whisper",
     license="MIT",
     packages=find_packages(exclude=["tests*"]),
     install_requires=[
